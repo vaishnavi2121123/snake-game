@@ -175,7 +175,7 @@
   }
 
   #UP {
-    top: 72.5vh;
+    top: 78.5vh;
     left: 74.5vw;
   }
 
@@ -185,12 +185,12 @@
   }
 
   #RIGHT {
-    top: 77vh;
+    top: 78vh;
     right: 7vw;
   }
 
   #LEFT {
-    top: 77vh;
+    top: 78vh;
     left: 65.5vw;
   }
 }
