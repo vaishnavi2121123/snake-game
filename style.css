@@ -102,7 +102,7 @@
     overflow-x: hidden;
     overflow-y: hidden;
     background: url(bgm.png);
-    min-height: 100vh;
+    min-height: 90vh;
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
     display: flex;
@@ -114,7 +114,7 @@
   #scoreBox {
     position: absolute;
     /* text-align: center; */
-    top: 155px;
+    top: 95px;
     color: rgb(170, 234, 170);
     /* right: 100px; */
     font-size: 18px;
@@ -126,7 +126,7 @@
     position: absolute;
     /* text-align: center; */
     color: rgb(235, 235, 164);
-    top: 175px;
+    top: 80px;
     right: 17px;
     font-size: 15px;
     font-weight: bold;
@@ -175,12 +175,12 @@
   }
 
   #UP {
-    top: 78.5vh;
+    top: 73.5vh;
     left: 74.5vw;
   }
 
   #DOWN {
-    bottom: 6.25vh;
+    bottom: 12.25vh;
     left: 74.5vw;
   }
 
