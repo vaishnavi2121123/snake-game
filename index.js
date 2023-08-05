@@ -16,7 +16,7 @@ const btnRight = document.querySelector('#RIGHT');
 
 
 
-let speed = 7.5;
+let speed = 5;
 let score = 0;
 let lastPaintTime = 0;
 

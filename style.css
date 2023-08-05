@@ -134,7 +134,7 @@
 
   #board {
     background: linear-gradient(rgb(170, 234, 170), rgb(235, 235, 164));
-    
+    /* background: url(../images/mobbg.jpg); */
     width: 90vmin;
     height: 92vmin;
     border: 2px solid black;
@@ -164,10 +164,10 @@
 
   .btn {
     position: absolute;
-    width:10vw;
+    width: 9vw;
     background-color: #1b781b;
     color: rgb(235, 235, 164);
-    height: 4vh;
+    height: 5vh;
     border: 2px solid rgb(170, 234, 170);
     border-radius: 12px;
     font-weight: 900;
@@ -175,22 +175,22 @@
   }
 
   #UP {
-    top: 77.5vh;
+    top: 72.5vh;
     left: 74.5vw;
   }
 
   #DOWN {
-    bottom: 7.25vh;
+    bottom: 6.25vh;
     left: 74.5vw;
   }
 
   #RIGHT {
-    top: 83vh;
-    right: 8vw;
+    top: 77vh;
+    right: 7vw;
   }
 
   #LEFT {
-    top: 83vh;
-    left:65.5vw;
-}
+    top: 77vh;
+    left: 65.5vw;
+  }
 }
