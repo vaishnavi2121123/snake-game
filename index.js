@@ -1,23 +1,41 @@
-// Game Constants & Variables
-let inputDir = {x: 0, y: 0}; 
+//Game Constants & Variables
+let inputDir = {x: 0, y: 0};
 const foodSound = new Audio('food.mp3');
 const gameOverSound = new Audio('gameover.mp3');
 const moveSound = new Audio('move.mp3');
 const musicSound = new Audio('music.mp3');
-let speed = 5;
+
+
+//for mobiles
+
+const btnUp = document.querySelector('#UP');
+const btnDown = document.querySelector('#DOWN');
+const btnLeft = document.querySelector('#LEFT');
+const btnRight = document.querySelector('#RIGHT');
+// const board = document.querySelector(".snake-board");
+
+
+
+let speed = 7.5;
 let score = 0;
 let lastPaintTime = 0;
+
+let up = false;
+let down = false;
+let left = false;
+let right = false;
+
 let snakeArr = [
     {x: 13, y: 15}
-];
-
+]
 food = {x: 6, y: 7};
 
-// Game Functions
+//Game Functions
+
+//for better fps requestanimation frame is used and it is calling game function gameEngine like recursion
 function main(ctime) {
     window.requestAnimationFrame(main);
-    // console.log(ctime)
-    if((ctime - lastPaintTime)/1000 < 1/speed){
+    if((ctime - lastPaintTime)/1000 < 1/speed) {
         return;
     }
     lastPaintTime = ctime;
@@ -25,98 +43,106 @@ function main(ctime) {
 }
 
 function isCollide(snake) {
-    // If you bump into yourself 
-    for (let i = 1; i < snakeArr.length; i++) {
-        if(snake[i].x === snake[0].x && snake[i].y === snake[0].y){
+
+    //If you bump into urself
+     for (let i = 1; i < snakeArr.length; i++) {
+        if(snake[i].x === snake[0].x && snake[i].y === snake[0].y) {   //head bump into any segment of body
             return true;
         }
     }
-    // If you bump into the wall
-    if(snake[0].x >= 18 || snake[0].x <=0 || snake[0].y >= 18 || snake[0].y <=0){
+    //snake strikes the wall
+    if(snake[0].x >= 18 || snake[0].x <= 0 || snake[0].y >= 18 || snake[0].y <= 0){
         return true;
     }
-        
-    return false;
+    
 }
 
-function gameEngine(){
-    // Part 1: Updating the snake array & Food
-    if(isCollide(snakeArr)){
+function gameEngine() {
+    //P1: Updating the snake array & food
+    if(isCollide(snakeArr)) {
         gameOverSound.play();
         musicSound.pause();
-        inputDir =  {x: 0, y: 0}; 
-        alert("Game Over. Press any key to play again!");
+
+        inputDir = {x: 0, y: 0};
+        alert("Game Over, Better Luck Next Time, Press any key to play again!");
+
         snakeArr = [{x: 13, y: 15}];
         musicSound.play();
-        score = 0; 
+        score = 0;
     }
 
-    // If you have eaten the food, increment the score and regenerate the food
-    if(snakeArr[0].y === food.y && snakeArr[0].x ===food.x){
+    //If snake had eaten the food increment the score and regenerate the food
+
+    if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
         foodSound.play();
         score += 1;
-        if(score>hiscoreval){
+        if(score > hiscoreval) {
             hiscoreval = score;
             localStorage.setItem("hiscore", JSON.stringify(hiscoreval));
-            hiscoreBox.innerHTML = "HiScore: " + hiscoreval;
+            highscoreBox.innerHTML = "HiScore: " + hiscoreval;
         }
         scoreBox.innerHTML = "Score: " + score;
-        snakeArr.unshift({x: snakeArr[0].x + inputDir.x, y: snakeArr[0].y + inputDir.y});
+        snakeArr.unshift({x: snakeArr[0].x + inputDir.x, y: snakeArr[0].y + inputDir.y})
         let a = 2;
         let b = 16;
-        food = {x: Math.round(a + (b-a)* Math.random()), y: Math.round(a + (b-a)* Math.random())}
+
+        food = {x: Math.round(a + (b - a) * Math.random()), y: Math.round(a + (b - a) * Math.random())}
     }
 
-    // Moving the snake
-    for (let i = snakeArr.length - 2; i>=0; i--) { 
-        snakeArr[i+1] = {...snakeArr[i]};
+    //Moving the snake
+    for (let i = snakeArr.length - 2; i >= 0; i--) {
+        // const element = array[i];
+        snakeArr[i+1] = {...snakeArr[i]}    //used as object for referencing
+        
     }
-
     snakeArr[0].x += inputDir.x;
     snakeArr[0].y += inputDir.y;
 
-    // Part 2: Display the snake and Food
-    // Display the snake
+
+    //P2: Display the snake and food
+    //Display the snake
     board.innerHTML = "";
-    snakeArr.forEach((e, index)=>{
+    snakeArr.forEach((e, index) => {
         snakeElement = document.createElement('div');
         snakeElement.style.gridRowStart = e.y;
         snakeElement.style.gridColumnStart = e.x;
-
         if(index === 0){
             snakeElement.classList.add('head');
         }
-        else{
+        else
+        {
             snakeElement.classList.add('snake');
         }
         board.appendChild(snakeElement);
     });
-    // Display the food
-    foodElement = document.createElement('div');
-    foodElement.style.gridRowStart = food.y;
-    foodElement.style.gridColumnStart = food.x;
-    foodElement.classList.add('food')
-    board.appendChild(foodElement);
 
+    //Display the food
+    
+        foodElement = document.createElement('div');
+        foodElement.style.gridRowStart = food.y;
+        foodElement.style.gridColumnStart = food.x;
+        foodElement.classList.add('food');
+        board.appendChild(foodElement);
 
 }
 
 
-// Main logic starts here
+
+//Main logic starts here
 musicSound.play();
 let hiscore = localStorage.getItem("hiscore");
-if(hiscore === null){
+if(hiscore === null) {
     hiscoreval = 0;
-    localStorage.setItem("hiscore", JSON.stringify(hiscoreval))
+    localStorage.setItem("hiscore", JSON.stringify(hiscoreval));
 }
 else{
     hiscoreval = JSON.parse(hiscore);
-    hiscoreBox.innerHTML = "HiScore: " + hiscore;
+    highscoreBox.innerHTML = "HiScore: " + hiscoreval;
 }
-
 window.requestAnimationFrame(main);
-window.addEventListener('keydown', e =>{
-    inputDir = {x: 0, y: 1} // Start the game
+window.addEventListener('keydown', (e) => {
+
+    inputDir = {x:0, y:1} //start game
     moveSound.play();
     switch (e.key) {
         case "ArrowUp":
@@ -124,7 +150,7 @@ window.addEventListener('keydown', e =>{
             inputDir.x = 0;
             inputDir.y = -1;
             break;
-
+        
         case "ArrowDown":
             console.log("ArrowDown");
             inputDir.x = 0;
@@ -145,5 +171,26 @@ window.addEventListener('keydown', e =>{
         default:
             break;
     }
+    
 
+});
+
+
+btnUp.addEventListener("click", () => {
+  inputDir.x = 0;
+  inputDir.y = -1;
+});
+
+btnDown.addEventListener("click", () => {
+  inputDir.x = 0;
+  inputDir.y = 1;
+});
+
+btnLeft.addEventListener("click", () => {
+  inputDir.x = -1;
+  inputDir.y = 0;
+});
+btnRight.addEventListener("click", () => {
+  inputDir.x = 1;
+  inputDir.y = 0;
 });
