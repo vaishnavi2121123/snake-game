@@ -103,7 +103,7 @@
     overflow-y: hidden;
     background: url(bgm.png);
     background-color: #000000;
-    min-height: 90vh;
+    min-height: 100vh;
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
     display: flex;
@@ -181,7 +181,7 @@
   }
 
   #DOWN {
-    bottom: 7.25vh;
+    bottom: 12.25vh;
     left: 74.5vw;
   }
 
